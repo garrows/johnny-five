@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="demo.css">
 
 	<script src="angular.js"></script>
-	<script src="demo2.js"></script>
+	<script src="demo.js"></script>
 	
 </head>
 <body ng-app="JohnnyFiveDemo" data-ng-app data-ng-csp>
@@ -28,21 +28,38 @@
 						<div class="col-sm-3">
 
 							<label for="componentType" class="control-label">Component Type:</label>
-							<select name="componentType" class="form-control" ng-model="component.type" ng-options="type.value for type in data.componentTypes"></select>
+							<input type="text" disabled name="componentType" class="form-control" ng-model="component.type.value"></input>
 
 						</div>
 					
 						<div class="col-sm-3">
 
 							<label for="pin" class="control-label">Pin:</label>
-							<input type="number" name="pin" class="form-control" ng-model="component.pin">
+							<input type="text" disabled name="pin" class="form-control" ng-model="component.pin">
 
 						</div>
 
+						<!-- LED -->
 						<div class="col-sm-3" ng-show="component.type.value == 'Led'">
 
-							<button class="btn" ng-click="toggle(component)">Turn on/off</button>
+							<button class="btn btn-success" ng-click="component.toggle()" ng-show="component.isOn == false">Turn on</button>
+							<button class="btn btn-danger" ng-click="component.toggle()" ng-show="component.isOn == true">Turn off</button>
 
+						</div>
+
+						<!-- SERVO -->
+						<div class="col-sm-3" ng-show="component.type.value == 'Servo'">
+
+							<label for="angle" class="control-label">Angle:</label>
+      						<input type="range" name="angle" class="form-control"  min="0" max="180" ng-model="component.angle">
+							
+						</div>
+
+						<!-- BUTTON -->
+						<div class="col-sm-3" ng-show="component.type.value == 'Button'">
+
+							<button class="btn btn-success" disabled ng-show="component.isOn == false">Turn on</button>
+							<button class="btn btn-danger" disabled ng-show="component.isOn == true">Turn off</button>							
 						</div>
 
 					</form>
