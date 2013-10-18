@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
 
-  "name": "Jonny Five Demo",
-  "description": "Monitors your serial port and allows you to read and write to it like you could with Arduino's IDE.",
+  "name": "Johnny Five Demo",
+  "description": "Control an arduino from the browser.",
 
-  "version": "0.0.1",
+  "version": "0.0.2",
   
   "app": {
     "background": {
