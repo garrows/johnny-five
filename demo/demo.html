@@ -60,8 +60,15 @@
 
 							<label for="angle" class="control-label">Angle:</label>
 							<input type="range" name="angle" class="form-control"  min="0" max="180" ng-model="component.angle" ng-change="component.setAngle()">
-
 							
+						</div>
+
+						<!-- SENSOR -->
+						<div class="col-sm-3" ng-show="component.type.value == 'Sensor'">
+
+							<label for="val" class="control-label">Value:</label>
+							<input type="range" disabled name="val" class="form-control"  min="0" max="1024" ng-model="component.val">
+																				
 						</div>
 
 						<!-- BUTTON -->
@@ -89,7 +96,7 @@
 						<div class="col-sm-3">
 
 							<label for="pin" class="control-label">Pin:</label>
-							<input type="number" name="pin" min="0" max="30" value="1" class="form-control" ng-model="newComponent.pin">
+							<input type="text" name="pin" value="13" class="form-control" ng-model="newComponent.pin">
 
 						</div>
 

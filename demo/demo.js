@@ -5,8 +5,6 @@ function Component(type, pin) {
 
 	if (pin) {
 		this.pin = pin;		
-	} else {
-		this.pin = Component.prototype.lastPin++;		
 	}
 }
 
@@ -35,7 +33,7 @@ Component.prototype = {
 		//{name: 'Pin', value: 'Pin'},
 		//{name: 'PWMServo', value: 'PWMServo'},
 		//{name: 'Repl', value: 'Repl'},
-		//{name: 'Sensor', value: 'Sensor'},
+		{name: 'Sensor', value: 'Sensor'},
 		//{name: 'Servo', value: 'Servo'},
 		//{name: 'Stepper', value: 'Stepper'},
 		//{name: 'ShiftRegister', value: 'ShiftRegister'},
@@ -44,10 +42,10 @@ Component.prototype = {
 	],
 
 	type: null,
-	pin: 0,
-	lastPin: 13,
+	pin: "13",
 	isOn: false,
 	angle: 90,
+	val: 00,
 
 	toggle: function() {
 		if (this.isOn) {
@@ -60,6 +58,15 @@ Component.prototype = {
 
 	setAngle: function() {
 		this.j5Component.move(this.angle);
+	},
+
+	onData: function($scope) {
+		var $this = this;
+		return function(err, val) {
+			$this.val = this.value;
+			//console.log(val, err, this.value, $this.pin);
+			$scope.$apply()
+		};
 	},
 
 };
@@ -89,6 +96,16 @@ app.controller("DemoCtrl", function($scope) {
 			break;
 			case "Servo":
 				$scope.newComponent.j5Component = new $scope.five.Servo($scope.newComponent.pin);
+			break;
+			case "Sensor":
+				$scope.newComponent.j5Component = new $scope.five.Sensor({
+					pin: $scope.newComponent.pin,
+					freq: 500
+				});
+				$scope.newComponent.j5Component.on("data", $scope.newComponent.onData($scope));
+				// $scope.newComponent.j5Component.on("data", function(err, val) {
+				// 	console.log("wee", val, err, this.value);
+				// });
 			break;
 		}
 
